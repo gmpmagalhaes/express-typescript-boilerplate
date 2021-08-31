@@ -1,6 +1,5 @@
 import winston, { format } from 'winston';
-import LogLevels from '../enums/log_levels';
-import NodeEnv from '../enums/node_env';
+import { LogLevels, NodeEnv } from '../enums';
 
 const options: winston.LoggerOptions = {
     transports: [
