@@ -5,4 +5,7 @@ docs
 .idea/*
 
 .env
+
+# Logging
+logs
 *.log
