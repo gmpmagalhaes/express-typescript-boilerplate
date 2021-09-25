@@ -1,0 +1,1 @@
+export { default as CommonController } from './common-controller';

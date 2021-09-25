@@ -1,7 +1,6 @@
-import {ErrorRequestHandler} from "express";
-import {isHttpError} from "http-errors";
+import { ErrorRequestHandler } from "express";
 
-interface ErrorFormat {
+interface ErrorResponse {
     path: string;
     status: number;
     message: string;
@@ -10,15 +9,17 @@ interface ErrorFormat {
 }
 
 const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
-    const path = req.path;
     const status = err.status || 500;
-    const errFormat: ErrorFormat = {
+    const message = err.message || 'Internal Server Error';
+    const timestamp = err.timestamp || new Date().toISOString();
+    const path = req.path;
+    const error: ErrorResponse = {
         path,
         status,
-        message: isHttpError(err) ? err.message : 'Internal Server Error',
-        timestamp: err.timestamp,
+        message,
+        timestamp,
     }
-    return res.status(status).json(errFormat);
+    res.status(status).send(error);
 }
 
 export default errorHandler;

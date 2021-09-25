@@ -4,6 +4,7 @@ build
 docs
 .idea/*
 
+# environment
 .env
 
 # Logging
