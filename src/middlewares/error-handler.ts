@@ -1,4 +1,5 @@
 import { ErrorRequestHandler } from "express";
+import HttpException from "../exceptions/http-exception";
 
 interface ErrorResponse {
     path: string;
@@ -10,7 +11,7 @@ interface ErrorResponse {
 
 const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     const status = err.status || 500;
-    const message = err.message || 'Internal Server Error';
+    const message = err instanceof HttpException ? err.message || 'Internal Server Error' : 'Internal Server Error';
     const timestamp = err.timestamp || new Date().toISOString();
     const path = req.path;
     const error: ErrorResponse = {
